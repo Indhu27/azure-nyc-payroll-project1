@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "\nCREATE DATABASE udacity;\n\nUSE udacity\nGO\n\nCREATE EXTERNAL FILE FORMAT [SynapseDelimitedTextFormat] \nWITH ( FORMAT_TYPE = DELIMITEDTEXT ,\nFORMAT_OPTIONS (\nFIELD_TERMINATOR = ',',\nUSE_TYPE_DEFAULT = FALSE\n))\nGO\n\nCREATE EXTERNAL DATA SOURCE [DataLakeStorage]\nWITH (\n    LOCATION = 'https://adisnycpayrolljohnd.dfs.core.windows.net/payrolldata'\n)\nGO\n\nCREATE EXTERNAL TABLE [dbo].[NYC_Payroll_Summary_External]( \n[FiscalYear] [int] NULL,\n [AgencyName] [varchar](50) NULL, \n[TotalPaid] [float] NULL \n)\n WITH ( \nLOCATION = 'dirstaging/', \nDATA_SOURCE = [DataLakeStorage], \nFILE_FORMAT = [SynapseDelimitedTextFormat] \n); \nGO\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "udacity",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
